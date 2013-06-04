@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Trial Eligibility</title>
+	<link rel="stylesheet" type="text/css" href="static/style.css" />
+</head>
+<body>
+	<div id="container">
+		<div id="content">
+			<h1>Trial Eligibility</h1>
+			<form id="get_trials" method="get" action="/">
+				<input type="text" name="cond" value="diabetic cardiomyopathy" size="50" placeholder="medical condition" />
+				<button type="submit">Get</button>
+			</form>
+			
+			{% if csv %}
+			<p>
+				<a href="/{{ csv }}">{{ csv }}</a>
+			</p>
+			{% endif %}
+		</div>
+	</div>
+	<!--script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script-->
+	<!--script src="static/jquery.view.ejs.min.js"></script-->
+	<!--script>
+	$(document).ready(function() {
+		initApp();
+	});
+	</script-->
+</body>
+</html>
