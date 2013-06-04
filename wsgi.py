@@ -49,6 +49,7 @@ def index():
 	# if we got a condition, dump the trials to CSV
 	cond = bottle.request.query.get('cond')
 	csv_name = None
+	num_studies = 0
 	if cond is not None:
 		Study.setup_tables('storage.db')
 
@@ -58,16 +59,17 @@ def index():
 		# CSV header
 		csv_name = 'criteria-%s.csv' % datetime.now().isoformat()[:-7]
 		with codecs.open(csv_name, 'w', 'utf-8') as handle:
-			handle.write('"NCT","criteria","","","","",""\n')
+			handle.write('"NCT","criteria","format","logically sound","sub-population","negated inclusion","labs","scores","acronyms","spatial","patient behavior","subjective"\n')
 			
 			# CSV rows
 			for study in found_studies:
 				study.load()
-				handle.write('"%s","%s","","","","",""\n' % (study.nct, study.criteria_text.replace('"', '""')))
+				handle.write('"%s","%s","","","","","","","","","",""\n' % (study.nct, study.criteria_text.replace('"', '""')))
+				num_studies += 1
 	
 	# render index
 	template = _jinja_templates.get_template('index.html')
-	return template.render(csv=csv_name)
+	return template.render(csv=csv_name, num=num_studies)
 
 
 # ------------------------------------------------------------------------------ RESTful paths

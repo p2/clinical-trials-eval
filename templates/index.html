@@ -15,7 +15,7 @@
 			
 			{% if csv %}
 			<p>
-				<a href="/{{ csv }}">{{ csv }}</a>
+				Found {{ num }} {% if 1 == num %}trial:{% else %}trials:{% endif %} <a href="/{{ csv }}">{{ csv }}</a>
 			</p>
 			{% endif %}
 		</div>
