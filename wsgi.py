@@ -46,30 +46,39 @@ def _get_session():
 def index():
 	""" The index page """
 	
-	# if we got a condition, dump the trials to CSV
+	# get parameters
 	cond = bottle.request.query.get('cond')
+	if cond is not None and len(cond) < 1:
+		cond = None
 	csv_name = None
 	num_studies = 0
+	
+	# if we got a condition, dump the trials to CSV
 	if cond is not None:
+		count = True if bottle.request.query.get('csv') is None else False
 		Study.setup_tables('storage.db')
 
 		lilly = LillyCOI()
-		found_studies = lilly.search_for_condition(cond, True, ['id', 'eligibility'])
+		args = ['id'] if count else ['id', 'eligibility']
+		found_studies = lilly.search_for_condition(cond, True, args)
+		num_studies = len(found_studies)
 		
-		# CSV header
-		csv_name = 'criteria-%s.csv' % datetime.now().isoformat()[:-7]
-		with codecs.open(csv_name, 'w', 'utf-8') as handle:
-			handle.write('"NCT","criteria","format","logically sound","sub-population","negated inclusion","labs","scores","acronyms","spatial","patient behavior","subjective"\n')
-			
-			# CSV rows
-			for study in found_studies:
-				study.load()
-				handle.write('"%s","%s","","","","","","","","","",""\n' % (study.nct, study.criteria_text.replace('"', '""')))
-				num_studies += 1
+		# return CSV
+		if not count:
+			csv_name = 'criteria-%s.csv' % datetime.now().isoformat()[:-7]
+			with codecs.open(csv_name, 'w', 'utf-8') as handle:
+				
+				# CSV header
+				handle.write('"NCT","criteria","format","logically sound","sub-population","negated inclusion","labs","scores","acronyms","temporal","patient behavior/ability","subjective"\n')
+				
+				# CSV rows
+				for study in found_studies:
+					study.load()
+					handle.write('"%s","%s","","","","","","","","","",""\n' % (study.nct, study.criteria_text.replace('"', '""')))
 	
 	# render index
 	template = _jinja_templates.get_template('index.html')
-	return template.render(csv=csv_name, num=num_studies)
+	return template.render(cond=cond, csv=csv_name, num=num_studies)
 
 
 # ------------------------------------------------------------------------------ RESTful paths

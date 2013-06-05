@@ -9,14 +9,25 @@
 		<div id="content">
 			<h1>Trial Eligibility</h1>
 			<form id="get_trials" method="get" action="/">
-				<input type="text" name="cond" value="diabetic cardiomyopathy" size="50" placeholder="medical condition" />
-				<button type="submit">Get</button>
+				<input type="text" name="cond" value="{{ cond|default("diabetic cardiomyopathy", true) }}" size="50" placeholder="medical condition" />
+				<button type="submit">Get</button><br />
+				<input id="csv" type="checkbox" name="csv" value="yes" />
+				<label for="csv">create CSV</label>
 			</form>
 			
-			{% if csv %}
+			{% if num %}
 			<p>
-				Found {{ num }} {% if 1 == num %}trial:{% else %}trials:{% endif %} <a href="/{{ csv }}">{{ csv }}</a>
+				Found {{ num }} {% if 1 == num %}trial:{% else %}trials.{% endif %}
+				{% if csv %}
+			 	<a href="/{{ csv }}">{{ csv }}</a>
+				{% endif %}
 			</p>
+			{% else %}
+				{% if cond %}
+				<p>
+					<i>None found</i>
+				</p>
+				{% endif %}
 			{% endif %}
 		</div>
 	</div>
