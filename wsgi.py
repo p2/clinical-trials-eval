@@ -59,7 +59,7 @@ def index():
 		Study.setup_tables('storage.db')
 
 		lilly = LillyCOI()
-		args = ['id'] if count else ['id', 'eligibility']
+		args = None if count else ['id', 'eligibility']
 		found_studies = lilly.search_for_condition(cond, True, args)
 		num_studies = len(found_studies)
 		
