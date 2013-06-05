@@ -69,7 +69,7 @@ def index():
 			with codecs.open(csv_name, 'w', 'utf-8') as handle:
 				
 				# CSV header
-				handle.write('"NCT","criteria","format","logically sound","sub-population","negated inclusion","labs","scores","acronyms","temporal","patient behavior/ability","subjective"\n')
+				handle.write('"NCT","criteria","format","logical conflicts","sub-populations","negated inclusions","labs","scores","acronyms","temporal components","patient behavior/ability","investigator-subjective"\n')
 				
 				# CSV rows
 				for study in found_studies:
