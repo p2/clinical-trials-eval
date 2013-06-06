@@ -67,14 +67,16 @@ def index():
 		if not count:
 			csv_name = 'criteria-%s.csv' % datetime.now().isoformat()[:-7]
 			with codecs.open(csv_name, 'w', 'utf-8') as handle:
+				heads = ["format","num in","num ex","overly complex","sub-populations","negated inclusions","labs","scores","acronyms","temporal components","patient behavior/abilities","investigator-subjective components"]
+				headers = ','.join('""' for h in heads)
 				
 				# CSV header
-				handle.write('"NCT","criteria","format","logical conflicts","sub-populations","negated inclusions","labs","scores","acronyms","temporal components","patient behavior/ability","investigator-subjective"\n')
+				handle.write('"NCT","criteria",%s\n' % ','.join(['"%s"' % h for h in heads]))
 				
 				# CSV rows
 				for study in found_studies:
 					study.load()
-					handle.write('"%s","%s","","","","","","","","","",""\n' % (study.nct, study.criteria_text.replace('"', '""')))
+					handle.write('"%s","%s",%s\n' % (study.nct, study.criteria_text.replace('"', '""'), headers))
 	
 	# render index
 	template = _jinja_templates.get_template('index.html')
