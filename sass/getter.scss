@@ -1,4 +1,26 @@
 
+#crit_list {
+	thead th {
+		border-bottom: 1px solid $col-border;
+	}
+	tbody td {
+		padding: 0.5em;
+		vertical-align: top;
+		border-bottom: 1px solid lighten($col-border, 25%);
+		
+		.criteria {
+			font-family: monospace; white-space: pre; word-wrap: normal;
+		}
+		
+		&:first-child {
+			padding-left: 0;
+		}
+		&:last-child {
+			padding-right: 0;
+		}
+	}
+}
+
 #get_trials {
 	input, button {
 		font-size: 1.2em;

@@ -18,6 +18,12 @@ td:last-child { padding-right: 0; }
 @media screen and (min-width: 72em) { #container { border: 1px solid #787878; border-width: 0 1px; background-color: white; } }
 #content { padding: 2em 3em; }
 
+#crit_list thead th { border-bottom: 1px solid #787878; }
+#crit_list tbody td { padding: 0.5em; vertical-align: top; border-bottom: 1px solid #b8b8b8; }
+#crit_list tbody td .criteria { font-family: monospace; white-space: pre; word-wrap: normal; }
+#crit_list tbody td:first-child { padding-left: 0; }
+#crit_list tbody td:last-child { padding-right: 0; }
+
 #get_trials input, #get_trials button { font-size: 1.2em; }
 
 .green { color: #090; }

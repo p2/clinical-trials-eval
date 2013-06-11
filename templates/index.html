@@ -10,9 +10,13 @@
 			<h1>Trial Eligibility</h1>
 			<form id="get_trials" method="get" action="/">
 				<input type="text" name="cond" value="{{ cond|default("diabetic cardiomyopathy", true) }}" size="50" placeholder="medical condition" />
-				<button type="submit">Get</button><br />
-				<input id="csv" type="checkbox" name="csv" value="yes" />
-				<label for="csv">create CSV</label>
+				<button type="submit">Get</button>
+				<p>
+					<input id="criteria" type="checkbox" name="criteria" value="yes" {% if criteria %}checked="checked"{% endif %} />
+					<label for="criteria">show criteria</label><br />
+					<input id="csv" type="checkbox" name="csv" value="yes" />
+					<label for="csv">create CSV</label>
+				</p
 			</form>
 			
 			{% if num %}
@@ -20,6 +24,25 @@
 				Found {{ num }} {% if 1 == num %}trial:{% else %}trials.{% endif %}
 				{% if csv %}
 			 	<a href="/{{ csv }}">{{ csv }}</a>
+				{% endif %}
+				
+				{% if criteria %}
+				<table id="crit_list">
+					<thead>
+						<tr>
+							<th>NCT</th>
+							<th>Criteria</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for crit in criteria %}
+						<tr>
+							<td>{{ crit.nct }}</td>
+							<td><tt class="criteria">{{ crit.criteria_text }}</tt></td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
 				{% endif %}
 			</p>
 			{% else %}

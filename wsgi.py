@@ -50,21 +50,27 @@ def index():
 	cond = bottle.request.query.get('cond')
 	if cond is not None and len(cond) < 1:
 		cond = None
+	criteria = None
 	csv_name = None
 	num_studies = 0
 	
-	# if we got a condition, dump the trials to CSV
+	# if we got a condition
 	if cond is not None:
-		count = True if bottle.request.query.get('csv') is None else False
+		dump = True if bottle.request.query.get('criteria') is not None else False
+		csv = True if bottle.request.query.get('csv') is not None else False
 		Study.setup_tables('storage.db')
 
 		lilly = LillyCOI()
-		args = None if count else ['id', 'eligibility']
+		args = None if not dump and not csv else ['id', 'eligibility']
 		found_studies = lilly.search_for_condition(cond, True, args)
 		num_studies = len(found_studies)
 		
+		# list criteria
+		if dump:
+			criteria = found_studies
+		
 		# return CSV
-		if not count:
+		elif csv:
 			csv_name = 'criteria-%s.csv' % datetime.now().isoformat()[:-7]
 			with codecs.open(csv_name, 'w', 'utf-8') as handle:
 				heads = ["format","num in","num ex","overly complex","sub-populations","negated inclusions","labs","scores","acronyms","temporal components","patient behavior/abilities","investigator-subjective components"]
@@ -80,7 +86,7 @@ def index():
 	
 	# render index
 	template = _jinja_templates.get_template('index.html')
-	return template.render(cond=cond, csv=csv_name, num=num_studies)
+	return template.render(cond=cond, criteria=criteria, csv=csv_name, num=num_studies)
 
 
 # ------------------------------------------------------------------------------ RESTful paths
