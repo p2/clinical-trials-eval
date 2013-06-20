@@ -73,16 +73,16 @@ def index():
 		elif csv:
 			csv_name = 'criteria-%s.csv' % datetime.now().isoformat()[:-7]
 			with codecs.open(csv_name, 'w', 'utf-8') as handle:
-				heads = ["format","num in","num ex","overly complex","sub-populations","negated inclusions","labs","scores","acronyms","temporal components","patient behavior/abilities","investigator-subjective components"]
+				heads = ["format","num in","num ex","w age","w gender","w pregnancy","incomplete","overly complex","sub-populations","negated inclusions","labs","scores","acronyms","temporal components","patient behavior/abilities","investigator-subjective components","sum"]
 				headers = ','.join('""' for h in heads)
 				
 				# CSV header
-				handle.write('"NCT","criteria",%s\n' % ','.join(['"%s"' % h for h in heads]))
+				handle.write('"NCT","first received yrs ago","last update yrs ago","has completion","completion and status compatible","criteria",%s\n' % ','.join(['"%s"' % h for h in heads]))
 				
 				# CSV rows
 				for study in found_studies:
 					study.load()
-					handle.write('"%s","%s",%s\n' % (study.nct, study.criteria_text.replace('"', '""'), headers))
+					handle.write('"%s","","","","","%s",%s\n' % (study.nct, study.criteria_text.replace('"', '""'), headers))
 	
 	# render index
 	template = _jinja_templates.get_template('index.html')
