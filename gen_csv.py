@@ -8,6 +8,7 @@ import sys
 import logging
 import datetime
 from dateutil import parser
+import codecs
 
 from ClinicalTrials.lillycoi import LillyCOI
 
@@ -43,15 +44,21 @@ if __name__ == "__main__":
 		now = datetime.datetime.now()
 		
 		# list trials
-		for trial in found:
-			ago = trial.date('lastchanged_date')
-			ago_y = round((now - ago[1]).days / 365.25 * 10) / 10 if ago else 99
-			first = trial.date('firstreceived_date')
-			first_y = round((now - first[1]).days / 365.25 * 10) / 10 if first else 99
-			comp = trial.date('lastchanged_date')
-			comp_y = round((now - comp[1]).days / 365.25 * 10) / 10 if comp else 99
-			veri = trial.date('lastchanged_date')
-			veri_y = round((now - veri[1]).days / 365.25 * 10) / 10 if veri else 99
-			print trial.nct, ago_y, first_y, comp_y, veri_y
+		with codecs.open('years.csv', 'w') as csv:
+			csv.write("nct,first,last,completion,veri\n")
+			
+			for trial in found:
+				
+				# date comparison
+				first = trial.date('firstreceived_date')
+				first_y = round((now - first[1]).days / 365.25 * 10) / 10 if first[1] else 99
+				last = trial.date('lastchanged_date')
+				last_y = round((now - last[1]).days / 365.25 * 10) / 10 if last[1] else 99
+				comp = trial.date('primary_completion_date')
+				comp_y = round((now - comp[1]).days / 365.25 * 10) / 10 if comp[1] else 99
+				veri = trial.date('verification_date')
+				veri_y = round((now - veri[1]).days / 365.25 * 10) / 10 if veri[1] else 99
+				
+				csv.write('"%s",%.1f,%.1f,%.1f,%.1f\n' % (trial.nct, first_y, last_y, comp_y, veri_y))
 	else:
 		print "None found"
