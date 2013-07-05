@@ -9,7 +9,7 @@
 		<div id="content">
 			<h1>Trial Eligibility</h1>
 			<form id="get_trials" method="get" action="/">
-				<input type="text" name="cond" value="{{ cond|default("diabetic cardiomyopathy", true) }}" size="50" placeholder="medical condition" />
+				<input type="text" name="cond" value="{{ cond|default("rheumatoid arthritis", true) }}" size="50" placeholder="medical condition" />
 				<button type="submit">Get</button>
 				<p>
 					<input id="criteria" type="checkbox" name="criteria" value="yes" {% if criteria %}checked="checked"{% endif %} />

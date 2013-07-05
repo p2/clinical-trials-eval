@@ -80,9 +80,13 @@ def index():
 				handle.write('"NCT","first received yrs ago","last update yrs ago","has completion","completion and status compatible","criteria",%s\n' % ','.join(['"%s"' % h for h in heads]))
 				
 				# CSV rows
+				i = 0;
+				every = 1;
 				for study in found_studies:
-					study.load()
-					handle.write('"%s","","","","","%s",%s\n' % (study.nct, study.criteria_text.replace('"', '""'), headers))
+					if 0 == i % every:
+						study.load()
+						handle.write('"%s","","","","","%s",%s\n' % (study.nct, study.criteria_text.replace('"', '""'), headers))
+					i += 1;
 	
 	# render index
 	template = _jinja_templates.get_template('index.html')
