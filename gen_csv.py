@@ -60,5 +60,6 @@ if __name__ == "__main__":
 				veri_y = round((now - veri[1]).days / 365.25 * 10) / 10 if veri[1] else 99
 				
 				csv.write('"%s",%.1f,%.1f,%.1f,%.1f\n' % (trial.nct, first_y, last_y, comp_y, veri_y))
+		print 'Written to "years.csv"'
 	else:
 		print "None found"
