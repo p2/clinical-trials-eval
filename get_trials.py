@@ -7,6 +7,7 @@
 
 _list_path = 'nct-input.txt'
 _headers = ['nct', 'entered', 'last_updated', 'title', 'overall_contact', 'locations']
+_n_sample = 40
 _force_update = False
 _reference_lat_lng = [42.358, -71.06]			# Boston, MA
 
@@ -73,7 +74,9 @@ if __name__ == "__main__":
 			# skip if not in the US
 			countries = getattr(trial, 'location_countries')
 			if countries is None or 0 == len(countries) or u'United States' not in countries.get('country', []):
+				# print '-->  Skipping %s (%s)' % (nct, countries)
 				continue
+			# print '==>  Using %s' % nct
 			
 			first_y = trial.entered
 			last_y = trial.last_updated
@@ -113,11 +116,10 @@ if __name__ == "__main__":
 		rows_and_years.sort(key=lambda tup: (tup[1], tup[2]))
 		n_rows = len(rows_and_years)
 		
-		# random sampling - 20 max, split list by 4 and select 5 random
-		n = 20
-		if n_rows > n:
+		# random sampling -> _n_sample max, split list by 4 and select 5 random
+		if n_rows > _n_sample:
 			num_chunks = 4
-			per_chunk = 5
+			per_chunk = int(math.ceil(float(_n_sample) / num_chunks))
 			chunk_size = int(math.ceil(float(n_rows) / num_chunks))
 			if chunk_size < per_chunk:
 				raise Exception("There would be less than %d elements per chunk, adjust the number of chunks for %d list elements" % (per_chunk, n_rows))
