@@ -21,12 +21,12 @@
 			
 			{% if num %}
 			<p>
-				Found {{ num }} {% if 1 == num %}trial:{% else %}trials.{% endif %}
+				Found {{ num }} {% if 1 == num %}trial:{% else %}trials:{% endif %}
 				{% if csv %}
 			 	<a href="/{{ csv }}">{{ csv }}</a>
 				{% endif %}
 				
-				{% if criteria %}
+				{% if trials %}
 				<table id="crit_list">
 					<thead>
 						<tr>
@@ -35,10 +35,10 @@
 						</tr>
 					</thead>
 					<tbody>
-						{% for crit in criteria %}
+						{% for trial in trials %}
 						<tr>
-							<td>{{ crit.nct }}</td>
-							<td><tt class="criteria">{{ crit.criteria_text }}</tt></td>
+							<td>{{ trial.nct }}</td>
+							<td><tt class="criteria">{{ trial.eligibility_formatted }}</tt></td>
 						</tr>
 						{% endfor %}
 					</tbody>

@@ -18,7 +18,6 @@ from jinja2 import Template, Environment, PackageLoader
 from rdflib.graph import Graph
 
 # App
-from ClinicalTrials.study import Study
 from ClinicalTrials.lillycoi import LillyCOI
 
 
@@ -52,22 +51,22 @@ def index():
 		cond = None
 	criteria = None
 	csv_name = None
-	num_studies = 0
+	trials = []
+	num_trials = 0
 	
 	# if we got a condition
 	if cond is not None:
 		dump = True if bottle.request.query.get('criteria') is not None else False
 		csv = True if bottle.request.query.get('csv') is not None else False
-		Study.setup_tables('storage.db')
-
+		
 		lilly = LillyCOI()
 		args = None if not dump and not csv else ['id', 'eligibility']
-		found_studies = lilly.search_for_condition(cond, True, args)
-		num_studies = len(found_studies)
+		found_trials = lilly.search_for_condition(cond, True, args)
+		num_trials = len(found_trials)
 		
 		# list criteria
 		if dump:
-			criteria = found_studies
+			trials = found_trials
 		
 		# return CSV
 		elif csv:
@@ -82,7 +81,7 @@ def index():
 				# CSV rows
 				i = 0;
 				every = 1;
-				for study in found_studies:
+				for study in found_trials:
 					if 0 == i % every:
 						study.load()
 						handle.write('"%s","","","","","%s",%s\n' % (study.nct, study.criteria_text.replace('"', '""'), headers))
@@ -90,7 +89,7 @@ def index():
 	
 	# render index
 	template = _jinja_templates.get_template('index.html')
-	return template.render(cond=cond, criteria=criteria, csv=csv_name, num=num_studies)
+	return template.render(cond=cond, trials=trials, csv=csv_name, num=num_trials)
 
 
 # ------------------------------------------------------------------------------ RESTful paths
