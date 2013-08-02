@@ -18,12 +18,17 @@ from ClinicalTrials.lillycoi import LillyCOI
 # main
 if __name__ == "__main__":
 	logging.basicConfig(level=logging.DEBUG)
+	csv_path = None
 	
-	# ask for the CSV
-	csv_path = raw_input("CSV path: ")
-	if csv_path is None or len(csv_path) < 1:
-		print "No path given, so be it, good bye"
-		sys.exit(0)
+	# get the CSV to be updated
+	if '-f' in sys.argv:
+		csv_path = sys.argv[sys.argv.index('-f') + 1]
+	else:
+		print "Provide the path to the CSV to be updated after the -f flag"
+		sys.exit(1)
+	
+	if csv_path is None or not os.path.exists(csv_path):
+		raise Exception("There is no such file (%s)" % csv_path)
 	
 	# read CSV
 	with codecs.open(csv_path, 'r') as handle:
@@ -31,16 +36,18 @@ if __name__ == "__main__":
 		header = reader.next()
 		
 		idx_nct = header.index('NCT')
+		idx_drop = header.index('criteria')
 		idx_first = header.index('first received yrs ago')
 		idx_last = header.index('last update yrs ago')
 		
 		# open output file
-		csv_new = "%s-auto.csv" % os.path.splitext(csv_path)[0]
+		csv_new = "%s-auto-updated.csv" % os.path.splitext(csv_path)[0].replace('-manual', '')
 		with codecs.open(csv_new, 'w') as w_handle:
 			lilly = LillyCOI()
 			now = datetime.datetime.now()
 			
 			writer = csv.writer(w_handle)
+			header.pop(idx_drop)
 			writer.writerow(header)
 			
 			# loop trials
@@ -60,6 +67,7 @@ if __name__ == "__main__":
 				# write updated row
 				row[idx_first] = first_y
 				row[idx_last] = last_y
+				row.pop(idx_drop)
 				writer.writerow(row)
 		
 		print 'Written to "%s"' % csv_new
