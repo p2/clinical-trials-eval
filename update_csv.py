@@ -44,7 +44,8 @@ if __name__ == "__main__":
 		csv_new = "%s-auto-updated.csv" % os.path.splitext(csv_path)[0].replace('-manual', '')
 		with codecs.open(csv_new, 'w') as w_handle:
 			lilly = LillyCOI()
-			now = datetime.datetime.now()
+			# ref_date = datetime.datetime(2013, 7, 30)		# this can NOT be used against date last updated, of course
+			ref_date = datetime.datetime.now()
 			
 			writer = csv.writer(w_handle)
 			header.pop(idx_drop)
@@ -56,13 +57,13 @@ if __name__ == "__main__":
 				
 				# date calculations
 				first = trial.date('firstreceived_date')
-				first_y = round((now - first[1]).days / 365.25 * 10) / 10 if first[1] else 99
+				first_y = round((ref_date - first[1]).days / 365.25 * 10) / 10 if first[1] else 99
 				last = trial.date('lastchanged_date')
-				last_y = round((now - last[1]).days / 365.25 * 10) / 10 if last[1] else 99
+				last_y = round((ref_date - last[1]).days / 365.25 * 10) / 10 if last[1] else 99
 				comp = trial.date('primary_completion_date')
-				comp_y = round((now - comp[1]).days / 365.25 * 10) / 10 if comp[1] else 99
+				comp_y = round((ref_date - comp[1]).days / 365.25 * 10) / 10 if comp[1] else 99
 				veri = trial.date('verification_date')
-				veri_y = round((now - veri[1]).days / 365.25 * 10) / 10 if veri[1] else 99
+				veri_y = round((ref_date - veri[1]).days / 365.25 * 10) / 10 if veri[1] else 99
 				
 				# write updated row
 				row[idx_first] = first_y
