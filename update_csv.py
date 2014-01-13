@@ -7,7 +7,6 @@
 import sys
 import logging
 import datetime
-from dateutil import parser
 import codecs
 import csv
 import os.path

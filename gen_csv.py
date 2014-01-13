@@ -7,14 +7,14 @@
 import sys
 import logging
 import datetime
-from dateutil import parser
 import codecs
+import random
 
 from ClinicalTrials.lillycoi import LillyCOI
 
 
 # main
-if __name__ == "__main__":
+if __name__ == "__main__XX":
 	logging.basicConfig(level=logging.DEBUG)
 	
 	# ask for a condition and recruitment status
@@ -30,12 +30,17 @@ if __name__ == "__main__":
 		recruiting = False if recruiting_in[:1] is 'n' or recruiting_in[:1] is 'N' else True
 	
 	# get trials
+	get_trials(condition, recruiting)
+
+
+def get_trials(condition, recruiting=True, filename='years.csv'):
 	lilly = LillyCOI()
 	fields = [
 		'id',
 		'lastchanged_date',
 		'firstreceived_date',
 		'primary_completion_date',
+		'completion_date',
 		'verification_date'
 	]
 	found = lilly.search_for_condition(condition, recruiting, fields)
@@ -44,8 +49,11 @@ if __name__ == "__main__":
 		now = datetime.datetime.now()
 		
 		# list trials
-		with codecs.open('years.csv', 'w') as csv:
-			csv.write("nct,first,last,completion,veri\n")
+		with codecs.open(filename, 'w') as csv:
+			csv.write('NCT,"first received yrs ago","last update yrs ago",primary,completion,veri,"has completion","completion and status compatible",criteria\n')
+			
+			if len(found) > 150:
+				found = random.sample(found, len(found) / 4)
 			
 			for trial in found:
 				
@@ -56,10 +64,17 @@ if __name__ == "__main__":
 				last_y = round((now - last[1]).days / 365.25 * 10) / 10 if last[1] else 99
 				comp = trial.date('primary_completion_date')
 				comp_y = round((now - comp[1]).days / 365.25 * 10) / 10 if comp[1] else 99
+				done = trial.date('completion_date')
+				done_y = round((now - done[1]).days / 365.25 * 10) / 10 if done[1] else 99
 				veri = trial.date('verification_date')
 				veri_y = round((now - veri[1]).days / 365.25 * 10) / 10 if veri[1] else 99
 				
-				csv.write('"%s",%.1f,%.1f,%.1f,%.1f\n' % (trial.nct, first_y, last_y, comp_y, veri_y))
-		print 'Written to "years.csv"'
+				csv.write('"%s",%.1f,%.1f,%.1f,%.1f,%.1f,%s,%s,""\n' % (trial.nct, first_y, last_y, comp_y, done_y, veri_y, 'TRUE' if done[1] else 'FALSE', 'TRUE' if done[1] and done[1] > now else 'FALSE'))
+		print 'Written to "%s"' % filename
 	else:
 		print "None found"
+
+
+if __name__ == "__main__":
+	for cond in ['Gleevec', 'Cataract', 'Neuroblastoma', 'rheumatoid arthritis']:
+		get_trials(cond, True, 'Set-%s.csv' % cond.replace('rheumatoid arthritis', 'RheumArth'))
