@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>ClinicalTrials.gov as a data source for point-of-care trial recruitment</title>
+	<meta name="author" content="Pascal B Pfiffner">
+	<style type="text/css">
+		html, body { margin: 0; padding: 0; }
+		body { font: 110%/1.45 "Georgia Pro", Georgia, serif; }
+		article div { max-width: 640px; margin: 0 auto; }
+		header { margin-bottom: 4em; text-align: center; }
+		header .banner {
+			max-width: 100%; margin: 0 0 1em; padding: 3em;
+			color: white; background-color: rgb(122,51,47); background-color: rgb(30,30,30);
+		}
+		header h1 {
+			max-width: 640px; margin: 0 auto;
+		}
+		footer {
+			min-height: 6em; margin: 6em 0 0; padding: 3em;
+			font-size: 0.9em; text-align: center;
+			border-top: 1px solid rgb(220,220,220); background-color: rgb(240,240,240);
+		}
+		h1, h2, h3 { font: 2.4em/1.6 "Helvetica Neue Thin", "HelveticaNeue-Thin", "Helvetica Neue", HelveticaNeue, Helvetica, Arial, sans-serif; }
+		h2 { font-size: 1.8em; }
+		h3 { font-size: 1.6em; }
+		a, a:link, a:hover, a:visited { color: RGB(57, 96, 127); text-decoration: none; }
+		a:hover { text-decoration: underline; }
+		.authors, .affiliations { padding: 0.5em 0; font-size: 0.9em; }
+		.affiliations { color: rgb(64,64,64); }
+		.small { color: rgb(128,128,128); font-size: 0.85em; }
+	</style>
+</head>
+<body>
+	<article>
+		<header>
+			<div class="banner">
+				<h1>ClinicalTrials.gov as a data source for point-of-care trial recruitment.</h1>
+			</div>
+			<div class="authors">
+				<a href="http://chip.org/pascal-pfiffner" rel="author">Pascal B Pfiffner</a><sup>1,2</sup>,
+				JiWon Oh<sup>3</sup>,
+				<a href="http://chip.org/tim-miller" rel="author">Timothy A Miller</a><sup>1,2</sup>,
+				<a href="http://chip.org/kenneth-mandl" rel="author">Kenneth D Mandl</a><sup>1,2</sup>
+			</div>
+			<div class="affiliations">
+				<sup>1</sup> Boston Children’s Hospital Informatics Program at Harvard-MIT Health Sciences and Technology, Boston, MA<br>
+				<sup>2</sup> Center for Biomedical Informatics, Harvard Medical School, Boston, MA<br>
+				<sup>3</sup> Wellesley College, Wellesley, MA
+			</div>
+		</header>
+		<div>
+			<p>This abstract was presented as a <a href="Poster.pdf">poster presentation</a> <span class="small">[PDF, 70 KB]</span> at the 2014 <a href="https://www.jointmeeting.org/" target="_blank">ASCI/AAP Joint Meeting</a>, April 25-27 2014 in Chicago.
+			</p>
+		</div>
+		<div id="abstract" class="abstract">
+			<h2>Abstract</h2>
+			<p><em>Background:</em> Recruiting patients to clinical trials is an expensive, time consuming, and increasingly difficult process. With high market penetration of electronic medical records (EMR), the physician at the point of care could play a key role in identifying and recruiting patients, aided by intelligent tools comparing trial eligibility criteria to patient EMR data. With the mandate of prospective clinical trial registration, <a href="http://clinicaltrials.gov" target="_blank">ClinicalTrials.gov</a> (CTG) could become an engine not only of trial registration, but also enrollment. The database could be queried at the point of care and eligibility criteria compared against EMR data and physician and patient input. Eligibility criteria in CTG are provided as free text, however reliable automated eligibility evaluation requires criteria data to be “readable” by a computer.
+			</p>
+			<p><em>Objective:</em> We sought to evaluate the current state of trial registration data in CTG with respect to utility for automated trial matching.
+			</p>
+			<p><em>Methods:</em> We downloaded eligibility criteria and metadata for 437 trials that were open for recruitment in four different clinical areas. The trials were evaluated for currency of their recruitment status and their eligibility criteria were assessed for 4 obstacles to automated text interpretation. Finally, we tried to contact a subset of the trials by phone or email to determine the accuracy of contact details.
+			</p>
+			<p><em>Results:</em> A quarter of the trials were declaring to be still recruiting patients while listing a completion date in the past, indicating out of date records. Additionally, we found each of our 4 barriers to automated text interpretation to be present in 25% to up to 55% of all trials. Lastly, 31% (45 of 146) of the trials in our subset were reachable neither by phone nor by email.
+			</p>
+			<p><em>Discussion and Conclusion:</em> Outdated trial data in CTG is a problem previously identified and further specified by our findings of conflicting recruitment status data as well as incomplete and inaccurate contact details. Trials wishing to promote automated matching must thus ensure to keep registration status up to date and provide accurate contact data to enable referral of potentially eligible patients. Furthermore, our evaluation of obstacles posed to automated eligibility criteria interpretation indicates that such undertaking is beyond the state of the art for current text analysis software. We argue that enabling trial coordinators to supply key eligibility criteria in a simple yet standardized form to CTG might provide fertile grounds for informatics tools to assist with initial eligibility screening at the point of care.
+			</p>
+		</div>
+	</article>
+	<footer>2014 — <a href="http://www.chip.org">CHIP</a></footer>
+</body>
+</html>
