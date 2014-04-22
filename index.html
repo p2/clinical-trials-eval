@@ -5,27 +5,32 @@
 	<meta name="author" content="Pascal B Pfiffner">
 	<style type="text/css">
 		html, body { margin: 0; padding: 0; }
-		body { font: 110%/1.45 "Georgia Pro", Georgia, serif; }
+		body { font: 110%/1.5 "Georgia Pro", Georgia, serif; }
+		article { padding: 0 20px; }
 		article div { max-width: 640px; margin: 0 auto; }
-		header { margin-bottom: 4em; text-align: center; }
-		header .banner {
-			max-width: 100%; margin: 0 0 1em; padding: 3em;
-			color: white; background-color: rgb(122,51,47); background-color: rgb(30,30,30);
-		}
-		header h1 {
-			max-width: 640px; margin: 0 auto;
+		header {
+			margin: 0 -20px 4em; padding: 6em 20px 2em;
+			text-align: center;
+			color: white; background-color: rgb(30,30,30);
 		}
 		footer {
 			min-height: 6em; margin: 6em 0 0; padding: 3em;
 			font-size: 0.9em; text-align: center;
 			border-top: 1px solid rgb(220,220,220); background-color: rgb(240,240,240);
 		}
-		h1, h2, h3 { font: 2.4em/1.6 "Helvetica Neue Thin", "HelveticaNeue-Thin", "Helvetica Neue", HelveticaNeue, Helvetica, Arial, sans-serif; }
-		h2 { font-size: 1.8em; }
+		li { margin-top: 1em; }
+		h1, h2, h3 {
+			font: 2.4em/1.6 "Helvetica Neue Thin", "HelveticaNeue-Thin", "Helvetica Neue", HelveticaNeue, Helvetica, Arial, sans-serif;
+		}
+		header h1 { margin-bottom: 2em; }
+		h2 { margin-top: 2em; font-size: 1.8em; }
 		h3 { font-size: 1.6em; }
-		a, a:link, a:hover, a:visited { color: rgb(57,96,127); text-decoration: none; }
+		a, a:link, a:hover, a:visited { color: rgb(55,95,128); text-decoration: none; }
 		a:hover { text-decoration: underline; }
+		header a, header a:link, header a:visited { color: rgb(137,150,160); }
+		
 		.authors, .affiliations { padding: 0.5em 0; font-size: 0.9em; }
+		header .authors, header .affiliations { color: rgb(220,220,220); }
 		.affiliations { color: rgb(64,64,64); }
 		.small { color: rgb(128,128,128); font-size: 0.85em; }
 	</style>
@@ -35,21 +40,21 @@
 		<header>
 			<div class="banner">
 				<h1>ClinicalTrials.gov as a data source for point-of-care trial recruitment.</h1>
-			</div>
-			<div class="authors">
-				<a href="http://chip.org/pascal-pfiffner" rel="author">Pascal B Pfiffner</a><sup>1,2</sup>,
-				JiWon Oh<sup>3</sup>,
-				<a href="http://chip.org/tim-miller" rel="author">Timothy A Miller</a><sup>1,2</sup>,
-				<a href="http://chip.org/kenneth-mandl" rel="author">Kenneth D Mandl</a><sup>1,2</sup>
-			</div>
-			<div class="affiliations">
-				<sup>1</sup> Boston Children’s Hospital Informatics Program at Harvard-MIT Health Sciences and Technology, Boston, MA<br>
-				<sup>2</sup> Center for Biomedical Informatics, Harvard Medical School, Boston, MA<br>
-				<sup>3</sup> Wellesley College, Wellesley, MA
+				<p class="authors">
+					<a href="http://chip.org/pascal-pfiffner" rel="author">Pascal B Pfiffner</a><sup>1,2</sup>,
+					JiWon Oh<sup>3</sup>,
+					<a href="http://chip.org/tim-miller" rel="author">Timothy A Miller</a><sup>1,2</sup>,
+					<a href="http://chip.org/kenneth-mandl" rel="author">Kenneth D Mandl</a><sup>1,2</sup>
+				</p>
+				<p class="affiliations">
+					<sup>1</sup> Boston Children’s Hospital Informatics Program at Harvard-MIT Health Sciences and Technology, Boston, MA<br>
+					<sup>2</sup> Center for Biomedical Informatics, Harvard Medical School, Boston, MA<br>
+					<sup>3</sup> Wellesley College, Wellesley, MA
+				</p>
 			</div>
 		</header>
 		<div>
-			<p>This abstract was presented as a <a href="Poster.pdf">poster presentation</a> <span class="small">[PDF, 70 KB]</span> at the 2014 <a href="https://www.jointmeeting.org/" target="_blank">ASCI/AAP Joint Meeting</a>, April 25-27 2014 in Chicago.
+			<p>This abstract was presented as a <a href="Poster.pdf">poster presentation</a> <span class="small">[PDF, 737 KB]</span> at the 2014 <a href="https://www.jointmeeting.org/" target="_blank">ASCI/AAP Joint Meeting</a>, April 25-27 2014 in Chicago.
 			</p>
 		</div>
 		<div id="abstract" class="abstract">
@@ -57,7 +62,7 @@
 			<p><em>Background:</em>
 				Recruiting patients to clinical trials is an expensive, time consuming, and increasingly difficult process.
 				With high market penetration of electronic medical records (EMR), the physician at the point of care could play a key role in identifying and recruiting patients, aided by intelligent tools comparing trial eligibility criteria to patient EMR data.
-				With the mandate of prospective clinical trial registration, <a href="http://clinicaltrials.gov" target="_blank">ClinicalTrials.gov</a> (CTG) could become an engine not only of trial registration, but also enrollment.
+				With the mandate of prospective clinical trial registration, <a href="http://www.clinicaltrials.gov" target="_blank">ClinicalTrials.gov</a> (CTG) could become an engine not only of trial registration, but also enrollment.
 				The database could be queried at the point of care and eligibility criteria compared against EMR data and physician and patient input.
 				Eligibility criteria in CTG are provided as free text, however reliable automated eligibility evaluation requires criteria data to be “readable” by a computer.
 			</p>
@@ -81,7 +86,18 @@
 				We argue that enabling trial coordinators to supply key eligibility criteria in a simple yet standardized form to CTG might provide fertile grounds for informatics tools to assist with initial eligibility screening at the point of care.
 			</p>
 		</div>
+		<div id="resources" class="resources">
+			<h2>Resources</h2>
+			<ul>
+				<li><a href="http://www.clinicaltrials.gov" target="_blank">ClinicalTrials.gov</a> – Registry and results database of publicly and privately supported clinical studies.</li>
+				<li><a href="http://www.smartplatforms.org" target="_blank">SMART Platforms</a> – Creating an ecosystem of substitutable apps that can run on any electronic health record system.</li>
+			</ul>
+		</div>
 	</article>
-	<footer>2014 — <a href="http://www.chip.org">CHIP</a></footer>
+	<footer>
+		<p><a href="http://www.chip.org">CHIP</a> — <a href="http://www.childrenshospital.org">Boston Children's Hospital</a></p>
+		<p><a href="http://hms.harvard.edu">Harvard Medical School</a></p>
+		<p>2014-04-25</p>
+	</footer>
 </body>
 </html>
